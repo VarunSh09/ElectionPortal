@@ -53,10 +53,11 @@ public class UpdatePass extends HttpServlet {
 		String email = (String)session.getAttribute("Femail");
 		String name = (String)session.getAttribute("Name");
 		Connection con = DataCon.getConnection();
-
+		
+         String EncPassword = PasswordEncryption.generatedENC_Password(Password); 
         try {
 	           PreparedStatement ps = con.prepareStatement("update voters set Password=? where email=?");
-	           ps.setString(1, Password);
+	           ps.setString(1, EncPassword);
 	           ps.setString(2,email);
 	            ps.executeUpdate();
 	          

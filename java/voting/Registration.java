@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,10 +48,15 @@ public class Registration extends HttpServlet {
 		String Password = request.getParameter("Password");
 		String Gender = request.getParameter("gender");
 		String subject = "Welcome to Election Portal";
+		
 		String Text = "Hello "+name+".You are Successfully Registered to Election Portal";
 		// TODO Auto-generated method stub
 		   HttpSession session=request.getSession();  
-
+            
+		 
+		  String EncPassword = PasswordEncryption.generatedENC_Password(Password);
+			
+		   
 		doGet(request, response);
 	    Connection con =	DataCon.getConnection();
 	    try {PreparedStatement pstmt1 = con.prepareStatement("Select * from voters where AadharNo=? OR email=? ");
@@ -66,7 +72,7 @@ public class Registration extends HttpServlet {
 			pstmt.setString(1, name);
 			pstmt.setString(2, email);
 			pstmt.setString(3, Aadharno);
-			pstmt.setString(4, Password);
+			pstmt.setString(4, EncPassword);
 			pstmt.setString(5, Gender);
 			int rowset = pstmt.executeUpdate();
 			if(rowset>0) {

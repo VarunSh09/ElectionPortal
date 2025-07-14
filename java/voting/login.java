@@ -50,14 +50,14 @@ public class login extends HttpServlet {
 		 Connection con =DataCon.getConnection();
 		   HttpSession session=request.getSession();  
 		   
-		   String EncPassword = PasswordEncryption.generatedENC_Password(Password);
+		   String HashPassword = PasswordHashing.generatedHashPassword(Password);
 		   
 		    try {
 				PreparedStatement pstmt = con.prepareStatement("Select * from voters where AadharNo=? and email=? and Password=?");
 				
                    	pstmt.setString(1,Aadharno);
                    	pstmt.setString(2,email);
-                   	pstmt.setString(3, EncPassword);
+                   	pstmt.setString(3, HashPassword);
                    	ResultSet rs = pstmt.executeQuery();
 				if(rs.next()) {
 			        session.setAttribute("uname",rs.getString("name"));  

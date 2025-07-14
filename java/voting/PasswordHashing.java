@@ -4,8 +4,8 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class PasswordEncryption {
-	public static String generatedENC_Password(String password) {
+public class PasswordHashing {
+	public static String generatedHashPassword(String password) {
 		// TODO Auto-generated method stub
 		MessageDigest digest = null;
 		try {

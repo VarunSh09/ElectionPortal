@@ -54,7 +54,7 @@ public class Registration extends HttpServlet {
 		   HttpSession session=request.getSession();  
             
 		 
-		  String EncPassword = PasswordEncryption.generatedENC_Password(Password);
+		  String HashPassword = PasswordHashing.generatedHashPassword(Password);
 			
 		   
 		doGet(request, response);
@@ -72,7 +72,7 @@ public class Registration extends HttpServlet {
 			pstmt.setString(1, name);
 			pstmt.setString(2, email);
 			pstmt.setString(3, Aadharno);
-			pstmt.setString(4, EncPassword);
+			pstmt.setString(4, HashPassword);
 			pstmt.setString(5, Gender);
 			int rowset = pstmt.executeUpdate();
 			if(rowset>0) {
